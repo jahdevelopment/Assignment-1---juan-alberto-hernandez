@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿Console.WriteLine("Please insert the characters");
+string inputCharacters = Console.ReadLine();
+
+Result(inputCharacters);
+
+string Result(string inputCharacters)
+{
+    string newCharacters = inputCharacters.ToUpper();
+
+    Console.WriteLine(newCharacters);
+    return newCharacters;
+}
+
+

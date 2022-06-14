@@ -6,42 +6,55 @@
 Console.WriteLine("Please insert the characters");
 string inputCharacters = Console.ReadLine();
 
-Result(inputCharacters);
+Console.WriteLine(Result(inputCharacters));
 
 /* The function below receives as a parameter the string that the user created previously,
- we convert the string to Upper Case, also we create a string chars when we are going to 
-make the output of the new compress characters. There is another string called checkd when 
-the values are going to stored when they are not repeated.
-With a nested for loop we make a iteration in order to compare the equality of the characters
-presented in the string
+ we convert the string to Upper Case, also we create an array called chars when we are going to 
+convert every character of the string to a char. We add a dictionary to store the characters 
+with the value of appearance of each.
 */
-int Result(string inputCharacters)
+
+char[] Result(string inputCharacters)
 {
-    int Counter = 0;
     string charsToUpper = inputCharacters.ToUpper();
-    string chars = " ";
-    string checkd = "";
+    char[] chars = charsToUpper.ToCharArray();
+    Dictionary<char, int> charsToCount = new Dictionary<char, int>();
     
-    for (int i=0; i < charsToUpper.Length; i++)
+    /*
+     with the next foreach we add the characters comming from the chars array 
+    to the charsToCount Dictionary
+     */
+    foreach (char character in chars) 
     {
-        for (int j = i + 1; j < charsToUpper.Length; j++)
+        if (charsToCount.ContainsKey(character)) //If the character is contained in the dictionary, we just jump to the next index
         {
-            if (charsToUpper[i] == charsToUpper[j])
-            {
-                if (!checkd.Contains(charsToUpper[i]))
-                {
-                    chars += charsToUpper[i];
-                    Console.WriteLine(chars);
-                }
-                
-            }
-            
+            charsToCount[character]++;
         }
-        
-
+        else // If the character is new into the dictionary, we add it as a new collection 
+        {
+            charsToCount.Add(character, 1);
+        }
     }
+    // Below we create a new array of characters to store the key values of the dictionary previously filled out
+    char[] outputCharacters = new char[charsToCount.Count];
+    int CountingRep = 0;
     
-
-    return Counter;
+        foreach (KeyValuePair<char, int> pair in charsToCount) //with this foreach we iterate in the dictionary to extract the keys and the values
+    {
+        if (pair.Value >= 1 )
+        {
+            outputCharacters[CountingRep] = pair.Key;
+            CountingRep++;
+        }
+        else
+        {
+            Array.Resize(ref outputCharacters, outputCharacters.Length - 1);
+        }
+    }
+    return outputCharacters;
 }
 
+/*Sorry for not having the exercise resolved as the indications provided, but I felt completly stuck, 
+ sincerely the two foreach are brought remembering one class when you showed us how  to resolve an exercise of 
+creating a new string without repetitions.
+ */

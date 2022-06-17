@@ -25,32 +25,37 @@ Transaction(itemPrice, amountOfPayment);
 int Transaction( int itemPrice, int amountOfPayment)
 {
     Dictionary<int, int> vendingMachine = new Dictionary<int, int>();
-    vendingMachine.Add(20, 24);
-    vendingMachine.Add(10, 23);
-    vendingMachine.Add(5, 22);
-    vendingMachine.Add(2, 21);
+    vendingMachine.Add(20, 20);
+    vendingMachine.Add(10, 20);
+    vendingMachine.Add(5, 20);
+    vendingMachine.Add(2, 20);
     vendingMachine.Add(1, 20);
 
     int amountOfReturn = amountOfPayment - itemPrice;
-   
+    Console.WriteLine($"the amount of return is: {amountOfReturn}");
+
+
     while (amountOfReturn > 0)
     {
         foreach (KeyValuePair<int, int> item in vendingMachine)
-
-            if (item.Key.Equals(amountOfReturn))
+        {
+            while (item.Key <= amountOfReturn)
             {
-                Console.WriteLine($"the amount of return is: {amountOfReturn}");
                 int newValue;
                 newValue = item.Value - 1;
-                Console.WriteLine("new value: {0}",newValue);
                 vendingMachine[item.Key] = newValue;
-                amountOfReturn = 0;
-                Console.WriteLine(item.Value);
+                amountOfReturn= amountOfReturn - item.Key;
+                Console.WriteLine(vendingMachine[item.Key]);
             }
-            //else if (vendingMachine[item.Key] < amountOfPayment)
-            //{
 
-            //}
+        }
+
+        foreach (KeyValuePair<int, int> item in vendingMachine)
+        {
+            Console.WriteLine(item);
+        }
+        
+
     }
     return amountOfReturn;
 }
